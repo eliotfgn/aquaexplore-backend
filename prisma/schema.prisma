@@ -34,6 +34,16 @@ model WaterWay {
   turbidity   Decimal
   longitude   Decimal
   latitude    Decimal
+  cover       String
   continent   Continent @relation(fields: [continentId], references: [id])
   continentId Int
+  Species     Species[]
+}
+
+model Species {
+  id          Int        @id @default(autoincrement())
+  name        String
+  cover       String
+  description String
+  waterWays   WaterWay[]
 }
