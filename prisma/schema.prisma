@@ -38,6 +38,7 @@ model WaterWay {
   continent   Continent @relation(fields: [continentId], references: [id])
   continentId Int
   Species     Species[]
+  Quizz       Quizz[]
 }
 
 model Species {
@@ -76,4 +77,43 @@ model LessonCompletion {
   userId    Int
   lessonId  Int
   completed Boolean
+}
+
+model Quizz {
+  id         Int      @id @default(autoincrement())
+  index      Int
+  waterWay   WaterWay @relation(fields: [waterWayId], references: [id])
+  waterWayId Int
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  text      String
+  timeLimit Int      @default(30)
+  points    Int      @default(1)
+  choices   Choice[]
+}
+
+model Choice {
+  id         Int       @id @default(autoincrement())
+  text       String
+  isValid    Boolean   @default(false)
+  Question   Question? @relation(fields: [questionId], references: [id])
+  questionId Int?
+}
+
+model UserChoice {
+  id       Int     @id @default(autoincrement())
+  userId   Int
+  choiceId Int
+  isValid  Boolean
+}
+
+model QuizzCompletion {
+  id             Int     @id @default(autoincrement())
+  userId         Int
+  quizzId        Int
+  score          Int     @default(0)
+  completed      Boolean @default(false)
+  timeToComplete Int
 }
