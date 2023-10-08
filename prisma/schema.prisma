@@ -17,3 +17,23 @@ model User {
   firstname String?
   lastname  String?
 }
+
+model Continent {
+  id        Int        @id @default(autoincrement())
+  name      String
+  waterWays WaterWay[]
+}
+
+model WaterWay {
+  id          Int       @id @default(autoincrement())
+  name        String
+  lenght      Decimal
+  description String
+  ph          Decimal
+  temperature Decimal
+  turbidity   Decimal
+  longitude   Decimal
+  latitude    Decimal
+  continent   Continent @relation(fields: [continentId], references: [id])
+  continentId Int
+}
