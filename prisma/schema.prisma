@@ -47,3 +47,33 @@ model Species {
   description String
   waterWays   WaterWay[]
 }
+
+model Subject {
+  id    Int    @id @default(autoincrement())
+  name  String
+  cover String
+}
+
+model Lesson {
+  id          Int    @id @default(autoincrement())
+  index       Int
+  title       String
+  duration    String
+  contentText String
+  tips        Tip[]
+}
+
+model Tip {
+  id       Int      @id @default(autoincrement())
+  title    String
+  texts    String[]
+  Lesson   Lesson?  @relation(fields: [lessonId], references: [id])
+  lessonId Int?
+}
+
+model LessonCompletion {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  lessonId  Int
+  completed Boolean
+}
