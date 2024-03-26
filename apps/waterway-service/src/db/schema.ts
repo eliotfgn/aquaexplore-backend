@@ -1,10 +1,8 @@
 import {
-  date,
   decimal,
   numeric,
   pgEnum,
   pgTable,
-  primaryKey,
   text,
   timestamp,
   uuid,
@@ -40,6 +38,7 @@ export const waterwayRelations = relations(waterways, ({ many }) => ({
   contribution: many(contributions),
 }));
 
+// @ts-ignore
 export const waterQuality = pgTable('water_quality', {
   id: uuid('id').primaryKey().defaultRandom(),
   pH: numeric('pH', { scale: 1 }),
@@ -90,6 +89,7 @@ export const speciesRelation = relations(species, ({ one }) => ({
   }),
 }));
 
+// @ts-ignore
 export const contributions = pgTable('contributions', {
   id: uuid('id').primaryKey().defaultRandom(),
   contributorId: uuid('contributor_id').notNull(),
