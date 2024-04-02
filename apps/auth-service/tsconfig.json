@@ -16,6 +16,12 @@
     "noImplicitAny": true,
     "strictBindCallApply": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@features/*": ["src/core/features/*"],
+      "@utils/*": ["src/utils/*"],
+      "@db/*": ["src/core/db/*"]
+    }
   }
 }

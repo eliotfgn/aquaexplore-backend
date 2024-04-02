@@ -1,8 +1,8 @@
+import DbClient from '@db/db.type';
 import { CreateUserDto } from '@aquaexplore/types';
 import { Inject, Injectable } from '@nestjs/common';
-import { DB_CLIENT } from 'src/db/db.provider';
-import DbClient from 'src/db/db.type';
-import { users } from 'src/db/schema';
+import { DB_CLIENT } from '@db/db.provider';
+import { users } from '@db/schema';
 
 @Injectable()
 export class UserService {
