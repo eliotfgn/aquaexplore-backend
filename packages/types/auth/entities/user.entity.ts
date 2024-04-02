@@ -1,6 +1,6 @@
 import { IsBoolean, IsDate, IsEmail, IsEnum, IsString, IsUUID, Min } from 'class-validator';
 
-enum Role {
+export enum Role {
     USER = 'user',
     ADMIN = 'admin',
     EXPERT = 'expert'
@@ -25,7 +25,7 @@ export class UserEntity {
     password!: string;
 
     @IsEnum(Role)
-    role!: Role;
+    role?: Role;
 
     @IsBoolean()
     isVerified!: boolean;
