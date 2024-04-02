@@ -4,5 +4,5 @@ import DbClient from 'src/db/db.type';
 
 @Injectable()
 export class UserService {
-  constructor(@Inject(DB_CLIENT) private readonly dbClient: DbClient) {}
+  //constructor(@Inject(DB_CLIENT) private readonly dbClient: DbClient) {}
 }

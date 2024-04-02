@@ -40,6 +40,7 @@
     "postgres": "^3.4.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
+    "@aquaexplore/types": "workspace:^",
     "zod": "^3.22.4"
   },
   "devDependencies": {
