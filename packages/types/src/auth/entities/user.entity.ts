@@ -1,20 +1,22 @@
 import { IsBoolean, IsDate, IsEmail, IsEnum, IsString, IsUUID, Min } from 'class-validator';
 
-export enum Role {
+export enum RoleEnum {
     USER = 'user',
     ADMIN = 'admin',
     EXPERT = 'expert'
 }
+
+export type Role = 'user' | 'admin' | 'expert';
 
 export class UserEntity {
     @IsUUID()
     id!: string;
 
     @IsString()
-    firstName?: string;
+    firstName!: string | null;
 
     @IsString()
-    lastName?: string;
+    lastName!: string | null;
 
     @IsString()
     @IsEmail()
@@ -24,8 +26,8 @@ export class UserEntity {
     @Min(8)
     password!: string;
 
-    @IsEnum(Role)
-    role?: Role;
+    @IsEnum(RoleEnum)
+    role?: Role | RoleEnum;
 
     @IsBoolean()
     isVerified!: boolean;
