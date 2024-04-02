@@ -1,18 +1,19 @@
 {
-  "name": "@aquaexplore/types",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsc --build"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@nestjs/swagger": "^7.3.1",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.1",
-    "zod": "^3.22.4"
-  }
+    "name": "@aquaexplore/types",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.ts",
+    "types": "index.ts",
+    "scripts": {
+        "build": "tsc --build"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@nestjs/swagger": "^7.3.1",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.14.1",
+        "zod": "^3.22.4"
+    }
 }

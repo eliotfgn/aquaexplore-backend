@@ -19,10 +19,10 @@ async function bootstrap() {
               'ZGl2aW5lLXNhbG1vbi0xMDExMiT07qSh7U71Bfb20tREeXchCaQ8dsdUfImA8mc',
             password: 'Yzg4ZDMzYzAtZWVhOS00YmFhLWI4NzktODJiMmRlN2MyMWVk',
           },*/
-          logLevel: logLevel.ERROR,
-        },
-      },
-    },
+          logLevel: logLevel.ERROR
+        }
+      }
+    }
   );
   await app.listen();
 }
