@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { DB_CLIENT } from '@db/db.provider';
 import DbClient from '@db/db.type';
 import { CreateUserDto } from '@aquaexplore/types';
@@ -13,6 +13,12 @@ export class AuthService {
   ) {}
 
   async register(payload: CreateUserDto) {
+    const existingEmail = await this.userService.existingEmail(payload.email);
+
+    if (existingEmail) {
+      throw new BadRequestException('Email already exists.');
+    }
+
     const hashedPassword = await hashPassword(payload.password);
     payload.password = hashedPassword;
 
