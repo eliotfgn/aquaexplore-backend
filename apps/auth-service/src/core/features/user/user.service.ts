@@ -3,6 +3,7 @@ import { CreateUserDto, UserEntity } from '@aquaexplore/types';
 import { Inject, Injectable } from '@nestjs/common';
 import { DB_CLIENT } from '@db/db.provider';
 import { users } from '@db/schema';
+import { eq } from 'drizzle-orm';
 
 @Injectable()
 export class UserService {
@@ -16,5 +17,18 @@ export class UserService {
     const user: UserEntity = query[0];
 
     return user;
+  }
+
+  async existingEmail(email: string): Promise<boolean> {
+    const userWithEmail: UserEntity[] = await this.dbClient
+      .select()
+      .from(users)
+      .where(eq(users.email, email));
+
+    if (userWithEmail.length !== 0) {
+      return false;
+    }
+
+    return true;
   }
 }
