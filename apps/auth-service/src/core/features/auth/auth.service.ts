@@ -1,16 +1,11 @@
-import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { DB_CLIENT } from '@db/db.provider';
-import DbClient from '@db/db.type';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from '@aquaexplore/types';
 import { hashPassword } from '@/utils/password.util';
 import { UserService } from '@features/user/user.service';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    @Inject(DB_CLIENT) private readonly dbClient: DbClient,
-    private readonly userService: UserService
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   async register(payload: CreateUserDto) {
     const existingEmail = await this.userService.existingEmail(payload.email);
