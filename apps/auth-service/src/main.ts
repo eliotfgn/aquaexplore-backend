@@ -13,12 +13,12 @@ async function bootstrap() {
       client: {
         clientId: 'aquaexplore-auth-service',
         brokers: [process.env.KAFKA_BROKER!],
-        ssl: true,
+        /* ssl: true,
         sasl: {
           mechanism: 'scram-sha-256',
           username: process.env.KAFKA_USERNAME!,
           password: process.env.KAFKA_PASSWORD!
-        },
+        }, */
         logLevel: logLevel.ERROR,
         requestTimeout: 45000,
         connectionTimeout: 45000
