@@ -38,6 +38,7 @@
     "class-validator": "^0.14.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.30.4",
+    "jest-mock-extended": "^3.0.5",
     "kafkajs": "^2.2.4",
     "pg": "^8.11.3",
     "postgres": "^3.4.4",
