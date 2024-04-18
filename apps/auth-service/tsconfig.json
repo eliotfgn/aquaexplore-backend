@@ -18,10 +18,10 @@
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@db/*": ["src/core/db/*"],
       "@/*": ["src/*"],
       "@features/*": ["src/core/features/*"],
       "@utils/*": ["src/utils/*"],
-      "@db/*": ["src/core/db/*"]
     }
   }
 }

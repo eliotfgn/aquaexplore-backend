@@ -25,10 +25,6 @@ export class UserService {
       .from(users)
       .where(eq(users.email, email));
 
-    if (userWithEmail.length !== 0) {
-      return false;
-    }
-
-    return true;
+    return userWithEmail.length === 0;
   }
 }
