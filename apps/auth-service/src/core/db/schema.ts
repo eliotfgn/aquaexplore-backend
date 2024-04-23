@@ -59,6 +59,7 @@ export const verificationCodes = pgTable('verification_codes', {
   userId: uuid('user_id')
     .notNull()
     .references(() => users.id),
+  expiresAt: timestamp('created_at').notNull(),
   createdAt: timestamp('created_at').notNull().defaultNow()
 });
 
