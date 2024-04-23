@@ -19,6 +19,22 @@ export class UserService {
     return user;
   }
 
+  async getUserById(id: string): Promise<UserEntity | undefined> {
+    const user = await this.dbClient.query.users.findFirst({
+      where: eq(users.id, id)
+    });
+
+    return user;
+  }
+
+  async getUserByEmail(email: string): Promise<UserEntity | undefined> {
+    const user = await this.dbClient.query.users.findFirst({
+      where: eq(users.email, email)
+    });
+
+    return user;
+  }
+
   async existingEmail(email: string): Promise<boolean> {
     const userWithEmail: UserEntity[] = await this.dbClient
       .select()

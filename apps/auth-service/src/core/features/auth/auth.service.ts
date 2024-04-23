@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from '@aquaexplore/types';
+import { CreateUserDto, LoginDto } from '@aquaexplore/types';
 import { hashPassword } from '@/utils/password.util';
 import { UserService } from '@features/user/user.service';
 
@@ -23,5 +23,9 @@ export class AuthService {
     //TODO: Send account creation notification
 
     return user;
+  }
+
+  async login(payload: LoginDto) {
+    const { email, password } = payload;
   }
 }
