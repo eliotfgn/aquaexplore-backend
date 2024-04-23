@@ -1,5 +1,9 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto, LoginDto } from '@aquaexplore/types';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException
+} from '@nestjs/common';
+import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
 import { hashPassword } from '@/utils/password.util';
 import { UserService } from '@features/user/user.service';
 
@@ -27,5 +31,19 @@ export class AuthService {
 
   async login(payload: LoginDto) {
     const { email, password } = payload;
+
+    const user: UserEntity | undefined = await this.userService.getUserByEmail(
+      email
+    );
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    if (user.password !== password) {
+      throw new UnauthorizedException();
+    }
+
+    return { user };
   }
 }
