@@ -1,3 +1,4 @@
+import { createId } from '@paralleldrive/cuid2';
 import { relations } from 'drizzle-orm';
 import {
   timestamp,
@@ -10,6 +11,10 @@ import {
 } from 'drizzle-orm/pg-core';
 
 export const Role = pgEnum('role', ['user', 'admin', 'expert']);
+export const VerificationType = pgEnum('verification_type', [
+  'password',
+  'account'
+]);
 
 export const users = pgTable('users', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -24,7 +29,8 @@ export const users = pgTable('users', {
 });
 
 export const userRelations = relations(users, ({ many }) => ({
-  deviceNotificationToken: many(deviceNotificationTokens)
+  deviceNotificationToken: many(deviceNotificationTokens),
+  verificationCodes: many(verificationCodes)
 }));
 
 export const deviceNotificationTokens = pgTable('device_notification_tokens', {
@@ -40,6 +46,27 @@ export const deviceNotificationTokenRelations = relations(
   ({ one }) => ({
     user: one(users, {
       fields: [deviceNotificationTokens.userId],
+      references: [users.id]
+    })
+  })
+);
+
+export const verificationCodes = pgTable('verification_codes', {
+  id: varchar('id').primaryKey().default(createId()),
+  code: text('code').notNull(),
+  type: VerificationType('verification_type').notNull(),
+  verified: boolean('verified').notNull().default(false),
+  userId: uuid('user_id')
+    .notNull()
+    .references(() => users.id),
+  createdAt: timestamp('created_at').notNull().defaultNow()
+});
+
+export const verificationCodeRelation = relations(
+  verificationCodes,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [verificationCodes.userId],
       references: [users.id]
     })
   })
