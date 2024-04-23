@@ -7,6 +7,7 @@ import { UserModule } from '@features/user/user.module';
 import { TokenModule } from './core/shared/token/token.module';
 import { ConfigModule } from '@nestjs/config';
 import { envConfigOptions } from './config/env.config';
+import { MailModule } from './core/shared/mail/mail.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { envConfigOptions } from './config/env.config';
     DbModule,
     AuthModule,
     UserModule,
-    TokenModule
+    TokenModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService]
