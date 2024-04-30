@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { init } from '@paralleldrive/cuid2';
 import { UserService } from '@features/user/user.service';
-import { users, verificationCodes } from '@db/schema';
+import { verificationCodes } from '@db/schema';
 import { MailService } from '@/core/shared/mail/mail.service';
 import { and, eq } from 'drizzle-orm';
 
@@ -67,7 +67,7 @@ export class VerificationService {
     const verificationCode = await this.createAccountVerificationCode(userId);
 
     await this.mailService.sendMail(
-      `Your verification code is: ${verificationCode.code} .`,
+      `Your verification code is: ${verificationCode?.code} .`,
       user.email
     );
   }
