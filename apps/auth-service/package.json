@@ -20,7 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "drizzle-kit generate:pg",
     "db:push": "drizzle-kit push:pg",
-    "db:migrate": "node -r esbuild-register src/db/migrate.ts"
+    "db:migrate": "node -r esbuild-register src/core/db/migrate.ts"
   },
   "dependencies": {
     "@aquaexplore/types": "workspace:^",

@@ -39,12 +39,13 @@ services:
 
     auth-db:
         image: postgres:14
+        hostname: auth_db
         environment:
             - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORd=aquaexplore
-            - POSTGRES_DATABASE=aquaexplore_auth_service
+            - POSTGRES_PASSWORD=aquaexplore
+            - POSTGRES_DB=aquaexplore_auth_service
         ports:
-            - '5432:5430'
+            - '5430:5432'
         volumes:
             - auth_db:/var/lib/postgresql/data
 
