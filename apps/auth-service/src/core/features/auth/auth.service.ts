@@ -29,7 +29,7 @@ export class AuthService {
     return user;
   }
 
-  async login(payload: LoginDto) {
+  async login(payload: LoginDto): Promise<UserEntity> {
     const { email, password } = payload;
 
     const user: UserEntity | undefined = await this.userService.getUserByEmail(
@@ -44,6 +44,6 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    return { user };
+    return user;
   }
 }

@@ -11,7 +11,7 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
-        clientId: 'aquaexplore-auth-service',
+        clientId: 'aquaexplore/auth-service',
         brokers: [process.env.KAFKA_BROKER!],
         /* ssl: true,
         sasl: {

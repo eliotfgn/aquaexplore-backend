@@ -1,4 +1,4 @@
-import { Controller, OnModuleInit } from '@nestjs/common';
+import { Controller, OnModuleInit, Post } from '@nestjs/common';
 import { Client, ClientKafka } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 
