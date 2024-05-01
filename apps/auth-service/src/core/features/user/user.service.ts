@@ -41,7 +41,7 @@ export class UserService {
       .from(users)
       .where(eq(users.email, email));
 
-    return userWithEmail.length === 0;
+    return userWithEmail.length > 0;
   }
 
   async updateUser(

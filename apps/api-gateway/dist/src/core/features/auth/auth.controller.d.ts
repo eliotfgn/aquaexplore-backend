@@ -3,8 +3,9 @@ import { ClientKafka } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 export declare class AuthController implements OnModuleInit {
     private readonly authService;
-    authServiceClient: ClientKafka;
-    constructor(authService: AuthService);
-    onModuleInit(): Promise<void>;
-    login(payload: any): void;
+    private readonly authServiceClient;
+    constructor(authService: AuthService, authServiceClient: ClientKafka);
+    onModuleInit(): void;
+    login(payload: any): Promise<any>;
+    register(payload: any): Promise<any>;
 }

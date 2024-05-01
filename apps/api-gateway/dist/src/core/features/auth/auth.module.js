@@ -10,10 +10,28 @@ exports.AuthModule = void 0;
 const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
+const microservices_1 = require("@nestjs/microservices");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
+        imports: [
+            microservices_1.ClientsModule.register([
+                {
+                    name: 'AUTH_SERVICE',
+                    transport: microservices_1.Transport.KAFKA,
+                    options: {
+                        client: {
+                            clientId: 'api-gateway',
+                            brokers: ['localhost:29092'],
+                        },
+                        consumer: {
+                            groupId: 'aqua-explore/api-gateway',
+                        },
+                    },
+                },
+            ]),
+        ],
         providers: [auth_service_1.AuthService],
         controllers: [auth_controller_1.AuthController],
     })
