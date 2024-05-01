@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
-        "composite": true
+        "composite": true,
+        "module": "CommonJS"
     },
     "extends": "../../tsconfig.json",
     "include": ["src/**/*"]

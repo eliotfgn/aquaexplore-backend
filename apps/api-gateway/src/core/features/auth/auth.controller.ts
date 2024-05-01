@@ -1,26 +1,37 @@
-import { Controller, OnModuleInit, Post } from '@nestjs/common';
-import { Client, ClientKafka } from '@nestjs/microservices';
+import { Body, Controller, OnModuleInit, Post } from '@nestjs/common';
+import { Client, ClientKafka, Transport } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
+import { LoginDto, UserEntity } from '@aquaexplore/types';
 
 @Controller('auth')
 export class AuthController implements OnModuleInit {
   @Client({
+    transport: Transport.KAFKA,
     options: {
       client: {
         clientId: 'api-gateway',
-        brokers: [process.env.KAFKA_BROKER],
+        brokers: ['localhost:29092'],
       },
       consumer: {
         groupId: 'aqua-explore/api-gateway',
       },
     },
   })
-  private readonly authServiceClient: ClientKafka;
+  authServiceClient: ClientKafka;
 
-  constructor(private readonly authSerive: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
   async onModuleInit() {
     this.authServiceClient.subscribeToResponseOf('login');
     await this.authServiceClient.connect();
+  }
+
+  @Post('login')
+  login(@Body() payload: any) {
+    this.authServiceClient
+      .send('login', payload)
+      .subscribe((value: UserEntity) => {
+        console.log(value);
+      });
   }
 }
