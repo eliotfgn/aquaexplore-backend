@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import 'dotenv/config';
+import * as process from 'node:process';
 
 @Module({
   imports: [
@@ -12,7 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         options: {
           client: {
             clientId: 'api-gateway',
-            brokers: ['localhost:29092'],
+            brokers: [process.env.KAFKA_BROKER],
           },
           consumer: {
             groupId: 'aqua-explore/api-gateway',

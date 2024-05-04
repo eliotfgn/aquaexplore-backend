@@ -1,8 +1,6 @@
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
-import { Controller, HttpException } from '@nestjs/common';
-import { throwError } from 'rxjs';
-import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
+import { Controller } from '@nestjs/common';
 
 @Controller()
 export class AuthController {

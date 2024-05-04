@@ -5,26 +5,27 @@ import { logLevel } from '@nestjs/microservices/external/kafka.interface';
 import 'dotenv/config';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
-  app.connectMicroservice<MicroserviceOptions>({
-    transport: Transport.KAFKA,
-    options: {
-      client: {
-        clientId: 'aquaexplore/auth-service',
-        brokers: [process.env.KAFKA_BROKER!],
-        /* ssl: true,
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.KAFKA,
+      options: {
+        client: {
+          clientId: 'aquaexploreauth-service',
+          brokers: [process.env.KAFKA_BROKER!],
+          /* ssl: true,
         sasl: {
           mechanism: 'scram-sha-256',
           username: process.env.KAFKA_USERNAME!,
           password: process.env.KAFKA_PASSWORD!
         }, */
-        logLevel: logLevel.ERROR,
-        requestTimeout: 45000,
-        connectionTimeout: 45000
+          logLevel: logLevel.ERROR,
+          requestTimeout: 45000,
+          connectionTimeout: 45000
+        }
       }
     }
-  });
+  );
 
   /* app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.KAFKA,
@@ -46,8 +47,6 @@ async function bootstrap() {
     }
   }); */
 
-  await app.startAllMicroservices();
-
-  await app.listen(3000);
+  await app.listen();
 }
 bootstrap();

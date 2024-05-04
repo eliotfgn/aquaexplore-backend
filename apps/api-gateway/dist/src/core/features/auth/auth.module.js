@@ -11,6 +11,8 @@ const common_1 = require("@nestjs/common");
 const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const microservices_1 = require("@nestjs/microservices");
+require("dotenv/config");
+const process = require("node:process");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
@@ -23,7 +25,7 @@ exports.AuthModule = AuthModule = __decorate([
                     options: {
                         client: {
                             clientId: 'api-gateway',
-                            brokers: ['localhost:29092'],
+                            brokers: [process.env.KAFKA_BROKER],
                         },
                         consumer: {
                             groupId: 'aqua-explore/api-gateway',

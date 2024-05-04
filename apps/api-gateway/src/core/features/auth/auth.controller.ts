@@ -6,10 +6,9 @@ import {
   OnModuleInit,
   Post,
 } from '@nestjs/common';
-import { Client, ClientKafka, Transport } from '@nestjs/microservices';
+import { ClientKafka } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
-import { LoginDto, UserEntity } from '@aquaexplore/types';
-import { catchError, firstValueFrom, lastValueFrom, throwError } from 'rxjs';
+import { catchError, lastValueFrom, throwError } from 'rxjs';
 
 @Controller('auth')
 export class AuthController implements OnModuleInit {
@@ -38,7 +37,7 @@ export class AuthController implements OnModuleInit {
 
   @Post('register')
   async register(@Body() payload: any) {
-    const data = await firstValueFrom(
+    const data = await lastValueFrom(
       this.authServiceClient.send('register', payload).pipe(
         catchError((error) => {
           return throwError(

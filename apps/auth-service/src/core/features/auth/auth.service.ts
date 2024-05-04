@@ -4,7 +4,7 @@ import {
   UnauthorizedException
 } from '@nestjs/common';
 import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
-import { hashPassword } from '@/utils/password.util';
+import { comparePasswords, hashPassword } from '@/utils/password.util';
 import { UserService } from '@features/user/user.service';
 import { RpcException } from '@nestjs/microservices';
 
@@ -41,7 +41,9 @@ export class AuthService {
       throw new RpcException(new UnauthorizedException());
     }
 
-    if (user.password !== password) {
+    const validPassword = await comparePasswords(password, user.password);
+
+    if (!validPassword) {
       throw new RpcException(new UnauthorizedException());
     }
 

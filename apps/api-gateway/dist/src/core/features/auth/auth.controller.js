@@ -32,7 +32,7 @@ let AuthController = exports.AuthController = class AuthController {
             .pipe((0, rxjs_1.catchError)((error) => (0, rxjs_1.throwError)(() => new common_1.HttpException(error.response, error.status)))));
     }
     async register(payload) {
-        const data = await (0, rxjs_1.firstValueFrom)(this.authServiceClient.send('register', payload).pipe((0, rxjs_1.catchError)((error) => {
+        const data = await (0, rxjs_1.lastValueFrom)(this.authServiceClient.send('register', payload).pipe((0, rxjs_1.catchError)((error) => {
             return (0, rxjs_1.throwError)(() => new common_1.HttpException(error.response, error.status));
         })));
         return data;
