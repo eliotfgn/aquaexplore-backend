@@ -1,4 +1,6 @@
 import { IsBoolean, IsDate, IsEmail, IsEnum, IsString, IsUUID, Min } from 'class-validator';
+import { Exclude, Transform } from 'class-transformer';
+import { PickType } from '@nestjs/swagger';
 
 export enum RoleEnum {
     USER = 'user',
@@ -24,6 +26,7 @@ export class UserEntity {
 
     @IsString()
     @Min(8)
+    @Exclude()
     password!: string;
 
     @IsEnum(RoleEnum)
@@ -37,4 +40,11 @@ export class UserEntity {
 
     @IsDate()
     updatedAt!: Date;
+}
+
+export class LoginDto extends PickType<UserEntity, keyof UserEntity>(UserEntity, ['password']) {
+    @IsString()
+    @IsEmail()
+    @Transform((value) => 'grosse bite')
+    email!: string;
 }
