@@ -41,10 +41,3 @@ export class UserEntity {
     @IsDate()
     updatedAt!: Date;
 }
-
-export class LoginDto extends PickType<UserEntity, keyof UserEntity>(UserEntity, ['password']) {
-    @IsString()
-    @IsEmail()
-    @Transform((value) => 'grosse bite')
-    email!: string;
-}

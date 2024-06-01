@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "composite": true,
-        "module": "CommonJS"
+        "outDir": "./build"
+        //"module": "commonjs"
     },
     "extends": "../../tsconfig.json",
     "include": ["src/**/*"]

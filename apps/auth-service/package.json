@@ -23,7 +23,7 @@
     "db:migrate": "node -r esbuild-register src/core/db/migrate.ts"
   },
   "dependencies": {
-    "@aquaexplore/types": "workspace:^",
+    "@aquaexplore/types": "workspace:*",
     "@neondatabase/serverless": "^0.9.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.0",
