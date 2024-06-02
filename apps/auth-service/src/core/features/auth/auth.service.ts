@@ -1,7 +1,12 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from '@aquaexplore/types';
-import { hashPassword } from '@/utils/password.util';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException
+} from '@nestjs/common';
+import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
+import { comparePasswords, hashPassword } from '@/utils/password.util';
 import { UserService } from '@features/user/user.service';
+import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +16,7 @@ export class AuthService {
     const existingEmail = await this.userService.existingEmail(payload.email);
 
     if (existingEmail) {
-      throw new BadRequestException('Email already exists.');
+      throw new RpcException(new BadRequestException('Email already exists.'));
     }
 
     const hashedPassword = await hashPassword(payload.password);
@@ -21,6 +26,26 @@ export class AuthService {
 
     //TODO: Trigger account verification process
     //TODO: Send account creation notification
+
+    return user;
+  }
+
+  async login(payload: LoginDto): Promise<UserEntity> {
+    const { email, password } = payload;
+
+    const user: UserEntity | undefined = await this.userService.getUserByEmail(
+      email
+    );
+
+    if (!user) {
+      throw new RpcException(new UnauthorizedException());
+    }
+
+    const validPassword = await comparePasswords(password, user.password);
+
+    if (!validPassword) {
+      throw new RpcException(new UnauthorizedException());
+    }
 
     return user;
   }

@@ -20,10 +20,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:generate": "drizzle-kit generate:pg",
     "db:push": "drizzle-kit push:pg",
-    "db:migrate": "node -r esbuild-register src/db/migrate.ts"
+    "db:migrate": "node -r esbuild-register src/core/db/migrate.ts"
   },
   "dependencies": {
-    "@aquaexplore/types": "workspace:^",
+    "@aquaexplore/types": "workspace:*",
     "@neondatabase/serverless": "^0.9.0",
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.2.0",
@@ -31,6 +31,7 @@
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/microservices": "^10.3.5",
     "@nestjs/platform-express": "^10.0.0",
+    "@paralleldrive/cuid2": "^2.2.2",
     "@types/pg": "^8.11.4",
     "bcrypt": "^5.1.1",
     "class-transformer": "^0.5.1",
@@ -42,6 +43,7 @@
     "pg": "^8.11.3",
     "postgres": "^3.4.4",
     "reflect-metadata": "^0.1.13",
+    "resend": "^3.2.0",
     "rxjs": "^7.8.1",
     "zod": "^3.22.4"
   },
