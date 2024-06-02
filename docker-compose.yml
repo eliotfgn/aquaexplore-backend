@@ -49,5 +49,18 @@ services:
         volumes:
             - auth_db:/var/lib/postgresql/data
 
+    waterway-db:
+        image: postgres:14
+        hostname: waterway_db
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=aquaexplore
+            - POSTGRES_DB=aquaexplore_waterway_service
+        ports:
+            - '5431:5432'
+        volumes:
+            - waterway_db:/var/lib/postgresql/data
+
 volumes:
     auth_db:
+    waterway_db:
