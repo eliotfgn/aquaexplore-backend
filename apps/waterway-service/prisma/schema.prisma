@@ -1,0 +1,126 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CountryEnum {
+  BJ
+}
+
+enum SpeciesState {
+  ENDANGERED
+  SAFE
+  DISAPPEARING
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+model Media {
+  id             String        @id @default(cuid())
+  url            String        @unique
+  description    String?
+  format         String
+  type           MediaType
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  waterway       Waterway?     @relation(fields: [waterwaysId], references: [id])
+  waterwaysId    String?
+  species        Species?      @relation(fields: [speciesId], references: [id])
+  speciesId      String?
+  contribution   Contribution? @relation(fields: [contributionId], references: [id])
+  contributionId String?       @unique
+}
+
+model Country {
+  id        String     @id @default(cuid())
+  code      String
+  flag      String
+  Waterways Waterway[]
+}
+
+model Waterway {
+  id               String             @id @default(cuid())
+  name             String
+  length           Decimal?
+  description      String?
+  cover            String?
+  gallery          Media[]
+  country          Country            @relation(fields: [countryId], references: [id])
+  countryId        String
+  locality         String?
+  longitude        Float
+  latitude         Float
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime?
+  waterQualityData WaterQualityData[]
+  species          Species[]
+  contributions    Contribution[]
+}
+
+model WaterQualityData {
+  id              String       @id @default(cuid())
+  pH              Float?
+  temperature     Float?
+  turbidity       Float?
+  conductivity    Float?
+  dissolvedOxygen Float?
+  waterway        Waterway     @relation(fields: [waterwayId], references: [id])
+  waterwayId      String
+  contribution    Contribution @relation(fields: [contributionId], references: [id])
+  contributionId  String       @unique
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime?
+}
+
+model Species {
+  id             String        @id @default(cuid())
+  name           String
+  scientificName String?
+  waterway       Waterway      @relation(fields: [waterwayId], references: [id])
+  waterwayId     String
+  cover          String?
+  description    String?
+  state          SpeciesState
+  gallery        Media[]
+  contribution   Contribution? @relation(fields: [contributionId], references: [id])
+  contributionId String?       @unique
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime?
+}
+
+enum ContributionResourceType {
+  water_quality
+  species
+  gallery
+  tip
+}
+
+model Contribution {
+  id                    String                   @id @default(cuid())
+  type                  ContributionResourceType @default(water_quality)
+  approved              Boolean                  @default(true)
+  contributorId         String
+  contributorProfilePic String?
+  contributorName       String
+  waterway              Waterway                 @relation(fields: [waterwayId], references: [id])
+  waterwayId            String
+  waterQualityData      WaterQualityData?
+  species               Species?
+  media                 Media?
+  createdAt             DateTime                 @default(now())
+  updatedAt             DateTime                 @updatedAt
+}

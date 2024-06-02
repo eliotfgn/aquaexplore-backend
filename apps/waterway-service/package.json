@@ -1,5 +1,5 @@
 {
-  "name": "waterway-service",
+  "name": "@aquaexplore/waterway-service",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -31,6 +31,7 @@
     "drizzle-orm": "^0.30.4",
     "kafkajs": "^2.2.4",
     "postgres": "^3.4.4",
+    "prisma": "^5.14.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
     "zod": "^3.22.4"
