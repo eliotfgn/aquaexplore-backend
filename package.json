@@ -28,6 +28,7 @@
         "typescript": "*"
     },
     "dependencies": {
+        "@nestjs/cli": "^10.0.0",
         "postgres": "^3.4.4"
     }
 }
