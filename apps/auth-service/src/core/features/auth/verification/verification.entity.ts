@@ -1,3 +1,1 @@
-export class VerificationCode {
-    
-}
+export class VerificationCode {}
