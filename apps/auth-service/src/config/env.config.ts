@@ -5,7 +5,6 @@ export const EnvVariablesSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'test', 'staging', 'production'])
     .default('development'),
-  PORT: z.string().default('9000'),
   DATABASE_URL: z.string(),
   JWT_SECRET: z.string(),
   ACCESS_TOKEN_EXPIRES_IN: z.string(),

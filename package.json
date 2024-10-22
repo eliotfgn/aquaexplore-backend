@@ -9,7 +9,8 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "lint": "eslint .",
         "format": "prettier --write .",
-        "auth": "pnpm --filter @aquaexplore/auth-service"
+        "gateway": "pnpm --filter api-gateway",
+        "auth": "pnpm --filter auth-service"
     },
     "keywords": [],
     "author": "",
