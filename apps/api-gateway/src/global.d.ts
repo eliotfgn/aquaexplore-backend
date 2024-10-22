@@ -1,4 +1,4 @@
-import { Environment } from './core/config/env.config';
+import { Environment } from './config/env.config';
 
 declare global {
   namespace NodeJS {

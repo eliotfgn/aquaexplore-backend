@@ -11,10 +11,7 @@ export const EnvVariablesSchema = z.object({
   ACCESS_TOKEN_EXPIRES_IN: z.string(),
   CLOUDINARY_CLOUD_NAME: z.string().optional(),
   CLOUDINARY_API_KEY: z.string().optional(),
-  CLOUDINARY_API_SECRET: z.string().optional(),
-  SMTP_HOST: z.string(),
-  SMTP_USER: z.string(),
-  SMTP_PASS: z.string()
+  CLOUDINARY_API_SECRET: z.string().optional()
 });
 
 export type Environment = z.infer<typeof EnvVariablesSchema>;

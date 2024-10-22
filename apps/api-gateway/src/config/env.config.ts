@@ -6,7 +6,6 @@ export const EnvVariablesSchema = z.object({
     .enum(['development', 'test', 'staging', 'production'])
     .default('development'),
   PORT: z.string().default('2020'),
-  KAFKA_BROKER: z.string(),
 });
 
 export type Environment = z.infer<typeof EnvVariablesSchema>;
