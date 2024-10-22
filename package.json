@@ -31,9 +31,12 @@
         "typescript": "*"
     },
     "dependencies": {
+        "@grpc/grpc-js": "^1.12.2",
+        "@grpc/proto-loader": "^0.7.13",
         "@nestjs/cli": "^10.0.0",
         "jest-mock-extended": "^3.0.5",
-        "postgres": "^3.4.4"
+        "postgres": "^3.4.4",
+        "ts-proto": "^2.2.4"
     },
     "packageManager": "pnpm@9.0.0+"
 }
