@@ -1,5 +1,5 @@
 DO $$ BEGIN
- CREATE TYPE "role" AS ENUM('user', 'admin', 'expert');
+ CREATE TYPE "role" AS ENUM('USER', 'admin', 'expert');
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"first_name" varchar,
 	"last_name" varchar,
 	"is_verified" boolean DEFAULT true NOT NULL,
-	"role" "role" DEFAULT 'user' NOT NULL,
+	"role" "role" DEFAULT 'USER' NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL,
 	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "users_email_unique" UNIQUE("email")

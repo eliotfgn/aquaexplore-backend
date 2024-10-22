@@ -13,7 +13,7 @@ const main = async () => {
     console.log('Migration done successfully ⚡');
   } catch (err) {
     log(err);
-    console.log('An error occured');
+    console.log('An error occurred');
   }
   process.exit(0);
 };
