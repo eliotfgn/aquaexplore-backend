@@ -9,7 +9,7 @@ function generateIndexTs() {
         .filter((file) => file.endsWith('.ts') && file !== 'index.ts')
         .map((file) => `export * from './${file.replace('.ts', '')}';`);
 
-    const indexContent = files.join('\n');
+    const indexContent = ['// @ts-nocheck', ...files].join('\n');
 
     fs.writeFileSync(path.join(distPath, 'index.ts'), indexContent);
 }

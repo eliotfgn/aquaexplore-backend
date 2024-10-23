@@ -4,6 +4,10 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { DB_CLIENT } from '@db/db.provider';
 import { users } from '@db/schema';
 import { eq } from 'drizzle-orm';
+import {
+  UserServiceClient,
+  UserServiceControllerMethods
+} from '@aquaexplore/protos';
 
 @Injectable()
 export class UserService {
