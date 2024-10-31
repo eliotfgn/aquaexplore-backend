@@ -1,13 +1,13 @@
 import { createId } from '@paralleldrive/cuid2';
 import { relations } from 'drizzle-orm';
 import {
-  timestamp,
-  varchar,
-  pgTable,
-  pgEnum,
-  uuid,
   boolean,
-  text
+  pgEnum,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+  varchar
 } from 'drizzle-orm/pg-core';
 
 export const Role = pgEnum('role', ['user', 'admin', 'expert']);
@@ -24,8 +24,8 @@ export const users = pgTable('users', {
   lastName: varchar('last_name'),
   isVerified: boolean('is_verified').notNull().default(true),
   role: Role('role').notNull().default('user'),
-  createdAt: timestamp('created_at').notNull().defaultNow(),
-  updatedAt: timestamp('updated_at').notNull().defaultNow()
+  createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow(),
+  updatedAt: timestamp('updated_at', { mode: 'string' }).notNull().defaultNow()
 });
 
 export const userRelations = relations(users, ({ many }) => ({
@@ -60,7 +60,7 @@ export const verificationCodes = pgTable('verification_codes', {
     .notNull()
     .references(() => users.id),
   expiresAt: timestamp('created_at').notNull(),
-  createdAt: timestamp('created_at').notNull().defaultNow()
+  createdAt: timestamp('created_at', { mode: 'string' }).notNull().defaultNow()
 });
 
 export const verificationCodeRelation = relations(

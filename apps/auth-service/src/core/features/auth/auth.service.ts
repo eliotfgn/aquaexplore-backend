@@ -1,7 +1,7 @@
 import { comparePasswords, hashPassword } from '@/utils/password.util';
 import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
 import { UserService } from '@features/user/user.service';
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class AuthService {
     const existingEmail = await this.userService.existingEmail(payload.email);
 
     if (existingEmail) {
-      throw new RpcException(new BadRequestException('Email already exists.'));
+      throw new RpcException({ code: 400, message: 'Email already exists.' });
     }
 
     const hashedPassword = await hashPassword(payload.password);

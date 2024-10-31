@@ -1,6 +1,17 @@
-import { AUTH_SERVICE_NAME, AuthServiceClient } from '@aquaexplore/protos';
-import { LoginDto } from '@aquaexplore/types';
-import { Body, Controller, Inject, OnModuleInit, Post } from '@nestjs/common';
+import {
+  AUTH_SERVICE_NAME,
+  AuthServiceClient,
+  RegisterRequest,
+} from '@aquaexplore/protos';
+import { CreateUserDto, LoginDto } from '@aquaexplore/types';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Inject,
+  OnModuleInit,
+  Post,
+} from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { AUTH_SERVICE } from 'src/config/constants';
@@ -16,7 +27,15 @@ export class AuthController implements OnModuleInit {
   }
 
   @Post('login')
+  @HttpCode(200)
   login(@Body() payload: LoginDto): Observable<any> {
     return this.authServiceClient.login(payload);
+  }
+
+  @Post('register')
+  register(@Body() payload: CreateUserDto): Observable<any> {
+    return this.authServiceClient.register(
+      payload as unknown as RegisterRequest,
+    );
   }
 }

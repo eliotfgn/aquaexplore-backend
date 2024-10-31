@@ -6,6 +6,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
 
+    console.log(exception);
+
     response
       .status(exception.code ?? 500)
       .json({ message: exception.details ?? 'An error occurred' });

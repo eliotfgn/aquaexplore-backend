@@ -8,8 +8,8 @@ export const UserSchema = z.object({
     lastName: z.string().nullable(),
     isVerified: z.boolean().default(true),
     role: z.enum(['user', 'admin', 'expert']).default('user'),
-    createdAt: z.date(),
-    updatedAt: z.date().optional()
+    createdAt: z.string(),
+    updatedAt: z.string().optional()
 });
 
 export type UserEntity = z.infer<typeof UserSchema>;
