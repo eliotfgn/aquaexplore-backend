@@ -1,11 +1,7 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException
-} from '@nestjs/common';
-import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
 import { comparePasswords, hashPassword } from '@/utils/password.util';
+import { CreateUserDto, LoginDto, UserEntity } from '@aquaexplore/types';
 import { UserService } from '@features/user/user.service';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { RpcException } from '@nestjs/microservices';
 
 @Injectable()
@@ -38,13 +34,13 @@ export class AuthService {
     );
 
     if (!user) {
-      throw new RpcException(new UnauthorizedException());
+      throw new RpcException({ code: 401, message: 'Inexistant user' });
     }
 
     const validPassword = await comparePasswords(password, user.password);
 
     if (!validPassword) {
-      throw new RpcException(new UnauthorizedException());
+      throw new RpcException({ code: 401, message: 'Invalid password' });
     }
 
     return user;

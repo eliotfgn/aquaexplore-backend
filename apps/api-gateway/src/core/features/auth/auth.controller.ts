@@ -1,8 +1,4 @@
-import {
-  AUTH_SERVICE_NAME,
-  AuthServiceClient,
-  LoginRequest,
-} from '@aquaexplore/protos';
+import { AUTH_SERVICE_NAME, AuthServiceClient } from '@aquaexplore/protos';
 import { LoginDto } from '@aquaexplore/types';
 import { Body, Controller, Inject, OnModuleInit, Post } from '@nestjs/common';
 import { ClientGrpc } from '@nestjs/microservices';
@@ -21,6 +17,6 @@ export class AuthController implements OnModuleInit {
 
   @Post('login')
   login(@Body() payload: LoginDto): Observable<any> {
-    return this.authServiceClient.login(payload as LoginRequest);
+    return this.authServiceClient.login(payload);
   }
 }

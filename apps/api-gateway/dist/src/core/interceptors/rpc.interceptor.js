@@ -11,12 +11,10 @@ const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 let RpcExceptionFilter = exports.RpcExceptionFilter = class RpcExceptionFilter {
     catch(exception, host) {
+        const error = exception.getError();
         const ctx = host.switchToHttp();
         const response = ctx.getResponse();
-        const request = ctx.getRequest();
-        const error = exception.getError();
-        console.log(error);
-        response.json(error);
+        response.status(500).json(error);
     }
 };
 exports.RpcExceptionFilter = RpcExceptionFilter = __decorate([
