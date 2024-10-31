@@ -1,43 +1,15 @@
-import { IsBoolean, IsDate, IsEmail, IsEnum, IsString, IsUUID, Min } from 'class-validator';
-import { Exclude, Transform } from 'class-transformer';
-import { PickType } from '@nestjs/swagger';
+import { z } from 'zod';
 
-export enum RoleEnum {
-    USER = 'user',
-    ADMIN = 'admin',
-    EXPERT = 'expert'
-}
+export const UserSchema = z.object({
+    id: z.string().cuid(),
+    email: z.string().email(),
+    password: z.string(),
+    firstName: z.string().nullable(),
+    lastName: z.string().nullable(),
+    isVerified: z.boolean().default(true),
+    role: z.enum(['user', 'admin', 'expert']).default('user'),
+    createdAt: z.date(),
+    updatedAt: z.date().optional()
+});
 
-export type Role = 'user' | 'admin' | 'expert';
-
-export class UserEntity {
-    @IsUUID()
-    id!: string;
-
-    @IsString()
-    firstName!: string | null;
-
-    @IsString()
-    lastName!: string | null;
-
-    @IsString()
-    @IsEmail()
-    email!: string;
-
-    @IsString()
-    @Min(8)
-    @Exclude()
-    password!: string;
-
-    @IsEnum(RoleEnum)
-    role?: Role | RoleEnum;
-
-    @IsBoolean()
-    isVerified!: boolean;
-
-    @IsDate()
-    createdAt!: Date;
-
-    @IsDate()
-    updatedAt!: Date;
-}
+export type UserEntity = z.infer<typeof UserSchema>;

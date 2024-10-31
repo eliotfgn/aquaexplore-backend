@@ -1,10 +1,6 @@
-import { PickType } from '@nestjs/swagger';
-import { UserEntity } from '../entities';
+import { z } from 'zod';
+import { UserSchema } from '../entities';
 
-export class CreateUserDto extends PickType<UserEntity, keyof UserEntity>(UserEntity, [
-    'email',
-    'password',
-    'firstName',
-    'lastName',
-    'role'
-]) {}
+export const CreateUserSchema = UserSchema.pick({ email: true, password: true });
+
+export type CreateUserDto = z.infer<typeof CreateUserSchema>;

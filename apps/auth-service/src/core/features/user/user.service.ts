@@ -1,20 +1,16 @@
-import DbClient from '@db/db.type';
 import { CreateUserDto, UserEntity } from '@aquaexplore/types';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { DB_CLIENT } from '@db/db.provider';
+import DbClient from '@db/db.type';
 import { users } from '@db/schema';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { eq } from 'drizzle-orm';
-import {
-  UserServiceClient,
-  UserServiceControllerMethods
-} from '@aquaexplore/protos';
 
 @Injectable()
 export class UserService {
   constructor(@Inject(DB_CLIENT) private readonly dbClient: DbClient) {}
 
   async createUser(payload: CreateUserDto): Promise<UserEntity> {
-    const query: CreateUserDto[] = await this.dbClient
+    const query: UserEntity[] = await this.dbClient
       .insert(users)
       .values(payload)
       .returning();

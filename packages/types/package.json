@@ -3,10 +3,11 @@
     "version": "1.0.0",
     "description": "",
     "type": "module",
-    "main": "index.ts",
-    "types": "index.ts",
+    "main": "./dist/index.js",
+    "types": "./dist/index.ts",
     "scripts": {
-        "build": "tsc --build"
+        "build": "rimraf ./dist && mkdir ./dist && tsc",
+        "build:watch": "rimraf ./dist && mkdir ./dist && tsc --watch"
     },
     "keywords": [],
     "author": "",
@@ -18,6 +19,7 @@
         "zod": "^3.22.4"
     },
     "devDependencies": {
+        "rimraf": "^6.0.1",
         "typescript": "^5.4.5"
     }
 }

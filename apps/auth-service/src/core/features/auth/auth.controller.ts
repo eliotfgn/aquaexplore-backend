@@ -1,12 +1,13 @@
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { GrpcMethod, MessagePattern, Payload } from '@nestjs/microservices';
 import { AuthService } from './auth.service';
 import { Controller } from '@nestjs/common';
+import { AUTH_SERVICE_NAME } from '@aquaexplore/protos';
 
 @Controller()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @MessagePattern('login')
+  @GrpcMethod(AUTH_SERVICE_NAME)
   async login(@Payload() payload: any) {
     return await this.authService.login(payload);
   }

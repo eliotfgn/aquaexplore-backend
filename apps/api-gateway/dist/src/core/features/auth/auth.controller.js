@@ -13,49 +13,31 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
+const protos_1 = require("@aquaexplore/protos");
 const common_1 = require("@nestjs/common");
-const microservices_1 = require("@nestjs/microservices");
-const auth_service_1 = require("./auth.service");
 const rxjs_1 = require("rxjs");
+const constants_1 = require("../../../config/constants");
 let AuthController = exports.AuthController = class AuthController {
-    constructor(authService, authServiceClient) {
-        this.authService = authService;
-        this.authServiceClient = authServiceClient;
+    constructor(grpcClient) {
+        this.grpcClient = grpcClient;
     }
     onModuleInit() {
-        this.authServiceClient.subscribeToResponseOf('login');
-        this.authServiceClient.subscribeToResponseOf('register');
+        this.authServiceClient = this.grpcClient.getService(protos_1.AUTH_SERVICE_NAME);
     }
     login(payload) {
-        return (0, rxjs_1.lastValueFrom)(this.authServiceClient
-            .send('login', payload)
-            .pipe((0, rxjs_1.catchError)((error) => (0, rxjs_1.throwError)(() => new common_1.HttpException(error.response, error.status)))));
-    }
-    async register(payload) {
-        const data = await (0, rxjs_1.lastValueFrom)(this.authServiceClient.send('register', payload).pipe((0, rxjs_1.catchError)((error) => {
-            return (0, rxjs_1.throwError)(() => new common_1.HttpException(error.response, error.status));
-        })));
-        return data;
+        return this.authServiceClient.login(payload);
     }
 };
 __decorate([
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Function]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "login", null);
-__decorate([
-    (0, common_1.Post)('register'),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "register", null);
+    __metadata("design:returntype", rxjs_1.Observable)
+], AuthController.prototype, "login", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
-    __param(1, (0, common_1.Inject)('AUTH_SERVICE')),
-    __metadata("design:paramtypes", [auth_service_1.AuthService,
-        microservices_1.ClientKafka])
+    __param(0, (0, common_1.Inject)(constants_1.AUTH_SERVICE)),
+    __metadata("design:paramtypes", [Object])
 ], AuthController);
 //# sourceMappingURL=auth.controller.js.map

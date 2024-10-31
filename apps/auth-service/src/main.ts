@@ -4,6 +4,7 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { logLevel } from '@nestjs/microservices/external/kafka.interface';
 import 'dotenv/config';
 import { join } from 'path';
+import { AUTH_PACKAGE_NAME } from '@aquaexplore/protos';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -11,7 +12,7 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        package: 'auth',
+        package: AUTH_PACKAGE_NAME,
         protoPath: join(
           __dirname,
           '../../node_modules/@aquaexplore/protos/src/auth.proto'

@@ -17,7 +17,7 @@ import { AUTH_PACKAGE_NAME } from '@aquaexplore/protos';
           package: AUTH_PACKAGE_NAME,
           protoPath: join(
             __dirname,
-            '../../../../node_modules/@aquaexplore/protos/src/auth.proto',
+            '../../../../../node_modules/@aquaexplore/protos/src/auth.proto',
           ),
         },
       },

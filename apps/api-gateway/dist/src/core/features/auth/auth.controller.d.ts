@@ -1,12 +1,11 @@
+import { LoginDto } from '@aquaexplore/types';
 import { OnModuleInit } from '@nestjs/common';
-import { ClientKafka } from '@nestjs/microservices';
-import { AuthService } from './auth.service';
-import type { LoginDto, UserEntity } from '@aquaexplore/types';
+import { ClientGrpc } from '@nestjs/microservices';
+import { Observable } from 'rxjs';
 export declare class AuthController implements OnModuleInit {
-    private readonly authService;
-    private readonly authServiceClient;
-    constructor(authService: AuthService, authServiceClient: ClientKafka);
+    private readonly grpcClient;
+    private authServiceClient;
+    constructor(grpcClient: ClientGrpc);
     onModuleInit(): void;
-    login(payload: LoginDto): Promise<UserEntity>;
-    register(payload: any): Promise<UserEntity>;
+    login(payload: LoginDto): Observable<any>;
 }

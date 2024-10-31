@@ -12,7 +12,9 @@ const auth_service_1 = require("./auth.service");
 const auth_controller_1 = require("./auth.controller");
 const microservices_1 = require("@nestjs/microservices");
 require("dotenv/config");
-const process = require("node:process");
+const constants_1 = require("../../../config/constants");
+const path_1 = require("path");
+const protos_1 = require("@aquaexplore/protos");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
@@ -20,16 +22,11 @@ exports.AuthModule = AuthModule = __decorate([
         imports: [
             microservices_1.ClientsModule.register([
                 {
-                    name: 'AUTH_SERVICE',
-                    transport: microservices_1.Transport.KAFKA,
+                    name: constants_1.AUTH_SERVICE,
+                    transport: microservices_1.Transport.GRPC,
                     options: {
-                        client: {
-                            clientId: 'api-gateway',
-                            brokers: [process.env.KAFKA_BROKER],
-                        },
-                        consumer: {
-                            groupId: 'aqua-explore/api-gateway',
-                        },
+                        package: protos_1.AUTH_PACKAGE_NAME,
+                        protoPath: (0, path_1.join)(__dirname, '../../../../../node_modules/@aquaexplore/protos/src/auth.proto'),
                     },
                 },
             ]),
