@@ -11,10 +11,10 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        package: 'user',
+        package: 'auth',
         protoPath: join(
           __dirname,
-          '../../node_modules/@aquaexplore/protos/src/user.proto'
+          '../../node_modules/@aquaexplore/protos/src/auth.proto'
         )
       }
     }

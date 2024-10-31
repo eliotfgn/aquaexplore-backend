@@ -12,6 +12,7 @@
     "app:gateway": "pnpm --filter api-gateway",
     "app:auth": "pnpm --filter auth-service",
     "pkg:protos": "pnpm --filter @aquaexplore/protos",
+    "pkg:types": "pnpm --filter @aquaexplore/types",
     "proto:build": "protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./proto-gen --ts_proto_opt=nestJs=true"
   },
   "keywords": [],
